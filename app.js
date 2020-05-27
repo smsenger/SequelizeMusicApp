@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const db = require('./models');
+const session = require('express-session');
 
 // const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -27,7 +28,28 @@ app.use(cookieParser());
 app.use(express.static('public'));
 // app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(session( {
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        // secure: true,
+        maxAge: 86400000,
+    },
+}));
 
+function checkAuthentication(req, res, next) {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('/users');
+        //res.render('/pagefilename.ejs')
+    }
+}
+
+app.get('/dashboard', checkAuthentication, (req, res) => {
+    res.send('This is the dashboard');
+});
 
 app.get('/album', (req, res) => {
     db.Album.findAll().then((results => {
