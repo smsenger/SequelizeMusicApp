@@ -1,0 +1,1 @@
+This repository contains an app with an existing database and a form for registering a user. Capability for adding artists, albums, and tracks to database.
