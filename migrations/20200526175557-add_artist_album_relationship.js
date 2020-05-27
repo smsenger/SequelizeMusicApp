@@ -31,13 +31,5 @@ module.exports = {
       'Albums', // name of Source model
       'artist_id' // key we want to remove
     );
- 
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.dropTable('users');
-    */
   }
 };

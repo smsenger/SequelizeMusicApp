@@ -4,8 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     artist_name: DataTypes.STRING
   }, {});
   Artist.associate = function(models) {
-    Artist.hasMany(models.Album);
+    Artist.hasMany(models.Album, {
+      foreignKey: "artist_id"
+    });
     // associations can be defined here
-  };
+  }
   return Artist;
 };
